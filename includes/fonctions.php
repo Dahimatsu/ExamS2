@@ -105,48 +105,70 @@ function getObjectsByCategory($categoryId) {
     return $objects;
 }
 
-function insertImage($imageName, $userID)
+function insertObjet($nom, $categorie, $userId)
 {
-    $sql = "INSERT INTO ExamS2_image_objet(nom_image) 
-            VALUES ('%s')";
+    $conn = dbConnect();
+    $sql = "INSERT INTO ExamS2_objet(nom_objet, id_categorie, id_membre) 
+            VALUES ('%s', '%s', '%s')";
+    $sql = sprintf($sql, $nom, $categorie, $userId);
+    mysqli_query($conn, $sql);
 
-    $sql = sprintf($sql, $imageName, $userID);
-    return mysqli_query(dbConnect(), $sql);
+    return mysqli_insert_id($conn); 
 }
-function upload($file, $user)
+
+function insertImage($imageName, $idObjet)
 {
-    $uploadDirectory = dirname(__DIR__) . '/assets/videos/';
+    $sql = "INSERT INTO ExamS2_image_objet(nom_image, id_objet) 
+            VALUES ('%s', '%s')";
+    $sql = sprintf($sql, $imageName, $idObjet);
+    mysqli_query(dbConnect(), $sql);
+}
+
+function uploadImage($files, $idObjet)
+{
+    $uploadDirectory = dirname(__DIR__) . '/assets/images/objets/';
     $maxSize = 100 * 1024 * 1024;
-    $allowedFiles = ['video/mp4'];
+    $allowedFiles = ['image/jpeg', 'image/png', 'image/gif'];
 
-    if ($file['error'] != UPLOAD_ERR_OK) {
-        die('Erreur lors de l upload : ' . $file['error']);
+    $imagesValides = 0;
+
+    for ($i = 0; $i < count($files['name']); $i++) {
+        if ($files['error'][$i] !== UPLOAD_ERR_OK)
+            continue;
+        if ($files['size'][$i] > $maxSize)
+            continue;
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $files['tmp_name'][$i]);
+        finfo_close($finfo);
+
+        if (!in_array($mime, $allowedFiles))
+            continue;
+
+        $extension = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+        $newName = uniqid() . '.' . $extension;
+
+        if (!is_dir($uploadDirectory)) {
+            mkdir($uploadDirectory, 0755, true);
+        }
+
+        $destination = $uploadDirectory . $newName;
+
+        if (move_uploaded_file($files['tmp_name'][$i], $destination)) {
+            insertImage($newName, $idObjet);
+            $imagesValides++;
+        }
     }
 
-    if ($file['size'] > $maxSize) {
-        die('Le fichier est trop volumineux.');
-    }
-
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime = finfo_file($finfo, $file['tmp_name']);
-    finfo_close($finfo);
-    if (!in_array($mime, $allowedFiles)) {
-        die('Type de fichier non autorisé : ' . $mime);
-    }
-
-    $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
-    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $newName = $originalName . '_' . uniqid() . '.' . $extension;
-
-    if (!is_dir($uploadDirectory)) {
-        mkdir($uploadDirectory, 0755, true);
-    }
-
-    $destination = $uploadDirectory . $newName;
-
-    if (move_uploaded_file($file['tmp_name'], $destination)) {
-        insertVideo($newName, $user);
-    } else {
-        echo "Échec du déplacement du fichier.";
+    if ($imagesValides === 0) {
+        insertImage("default.jpg", $idObjet);
     }
 }
+
+function ajouterNewObjet($nomObjet, $categorie, $userId, $files)
+{
+    $idObjet = insertObjet($nomObjet, $categorie, $userId);
+    uploadImage($files, $idObjet);
+}
+
+

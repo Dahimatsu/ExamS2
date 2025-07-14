@@ -7,7 +7,7 @@ $user = $_SESSION['user'];
     <form action="traitements/traitement-ajout.php" class="upload" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nom" class="form-label text-center w-100">Nom</label>
-            <input type="text" class="form-control" id="nom" name="nom" required>
+            <input type="text" class="form-control" id="nom_objet" name="nom_objet" required>
         </div>
         <div class="mb-3">
             <label for="categorie" class="form-label text-center w-100">Catégorie</label>
@@ -29,4 +29,15 @@ $user = $_SESSION['user'];
             <button type="submit" class="btn">Ajouter</button>
         </div>
     </form>
+    <div class="mt-3">
+        <?php if (isset($_GET['success'])) { ?>
+            <div class="alert alert-success">
+                Objet ajouté avec succès !
+            </div>
+        <?php } elseif (isset($_GET['error'])) { ?>
+            <div class="alert alert-danger">
+                Erreur lors de l'ajout de l'objet.
+            </div>
+        <?php } ?>
+    </div>
 </section>
