@@ -129,10 +129,6 @@ FROM `ExamS2_emprunt` e
 JOIN `ExamS2_objet` o ON e.`id_objet` = o.`id_objet`
 JOIN `ExamS2_membre` m ON e.`id_membre` = m.`id_membre`;
 
-SELECT o. `id_objet`, o.`nom_objet`, e.`date_emprunt`, e.`date_retour`
-FROM `ExamS2_v_objet_lib` o
-JOIN `ExamS2_v_emprunt_lib` e ON o.`id_objet` = e.`id_objet`;
-
 CREATE OR REPLACE VIEW `ExamS2_v_categorie_objet_lib` AS
 SELECT c.`id_categorie`, c.`nom_categorie`
-FROM `ExamS2_categorie_objet` c
+FROM `ExamS2_categorie_objet` c;

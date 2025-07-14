@@ -1,5 +1,5 @@
-<?php 
-if(!isset($_POST['rechercher'])) {
+<?php
+if (!isset($_POST['rechercher'])) {
     $objets = getAllObject();
 } else {
     $nomCategorie = $_POST['categorie_obj'];
@@ -49,6 +49,7 @@ $categories = getAllCategories();
                     <th scope="col" class="text-center">Nom</th>
                     <th scope="col" class="text-center">Statut</th>
                     <th scope="col" class="text-center">Date de retour</th>
+                    <th scope="col" class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +62,8 @@ $categories = getAllCategories();
                             </a>
                         </td>
                         <?php if (isEmpruntEnCoursId($objet['id_objet'])) { ?>
-                            <td><span class="badge bg-warning">Emprunt en cours</span></td>
+                            <td><span class="badge bg-warning">Disponible le <?= getEmpruntRetour($objet['id_objet']); ?></span>
+                            </td>
                         <?php } else { ?>
                             <td><span class="badge bg-success">Disponible</span></td>
                         <?php } ?>
@@ -73,7 +75,29 @@ $categories = getAllCategories();
                                 echo 'N/A';
                             } ?>
                         </td>
+                        <td>
+                            <?php if (!isEmpreinte($objet['id_objet'])) { ?>
+                                <?php if (!isset($_POST['emprunter']) || (isset($_POST['emprunter']) && $_POST['id_objet'] != $objet['id_objet'])) { ?>
+                                    <form method="post">
+                                        <input type="hidden" name="id_objet" value="<?= $objet['id_objet']; ?>">
+                                        <button type="submit" name="emprunter" class="btn btn-primary">Emprunter</button>
+                                    </form>
+                                <?php } else if (isset($_POST['emprunter']) && $_POST['id_objet'] == $objet['id_objet']) { ?>
+                                        <div class="d-flex align-items-center">
+                                            <form action="traitements/traitement-emprunt.php" method="post" class="me-2 mb-0">
+                                                <input type="hidden" name="id_objet" value="<?= $objet['id_objet']; ?>">
+                                                <input type="hidden" name="id_user" value="<?= $user['id_membre']; ?>">
+                                                <input type="text" name="duree" placeholder="Durée en jours" class="form-control mb-2">
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+                        </td>
                     </tr>
+
                 <?php } ?>
             </tbody>
         </table>

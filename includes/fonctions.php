@@ -275,5 +275,28 @@ function getUserById($userId)
     }
 }
 
+function empreinter($idUser, $idObjet, $duree)
+{
+    $sql = "INSERT INTO ExamS2_emprunt(id_objet, id_membre, date_emprunt, date_retour) 
+            VALUES ('%s', '%s', NOW(), DATE_ADD(NOW(), INTERVAL %d DAY))";
 
+    $sql = sprintf($sql, $idObjet, $idUser, $duree);
+    mysqli_query(dbconnect(), $sql);
 
+    if (mysqli_affected_rows(dbconnect()) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isEmpreinte($idObjet){
+    $sql = "SELECT * 
+            FROM ExamS2_emprunt
+            WHERE id_objet = '%s'";
+
+    $sql = sprintf($sql, $idObjet);
+    $request = mysqli_query(dbConnect(), $sql);
+
+    return mysqli_num_rows($request) > 0;
+}
