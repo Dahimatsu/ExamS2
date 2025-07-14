@@ -10,16 +10,30 @@ $categories = getAllCategories();
 
     <div class="d-flex justify-content-center">
         <form method="post">
-            <label for="categorie">Choisir une catégorie: </label>
+            <label for="categorie_obj">Choisir une catégorie: </label>
             <select name="categorie_obj" id="categorie_obj">
                 <?php foreach ($categories as $categorie) { ?>
-                    <option value="volvo"><?php echo $categorie['nom_categorie'];?></option>
+                    <option value="<?php echo $categorie['nom_categorie'];?>"><?php echo $categorie['nom_categorie'];?></option>
                 <?php } ?>
             </select>
+            <div class="mb-3">
+                <p>
+                    <input type="text" placeholder="Nom de l'objet" class="form-control" id="name_obj" name="name_obj" required>
+                    Disponible <input type="radio" name="disponilbe"> 
+                </p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" name="rechercher" class="btn btn-dark">Valider</button>
+            </div>
         </form>
     </div>
 
+<?php if(isset('rechercher')) { ?>
+    
+    
 
+
+<?php }else{ ?>
     <div class="d-flex justify-content-center">
         <table class="table table-striped table-bordered w-50">
             <thead class="table-dark">
@@ -57,4 +71,5 @@ $categories = getAllCategories();
             </tbody>
         </table>
     </div>
+<?php } ?>
 </section>
