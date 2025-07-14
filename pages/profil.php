@@ -1,6 +1,8 @@
 
 <?php
-$objets = getUserObjects($user['id_membre']);
+$user_ID = $_GET["user"];
+$objets = getUserObjects($user_ID);
+$user = getUserById($user_ID);
 
 $objetsParCategorie = [];
 foreach ($objets as $objet) {
@@ -32,7 +34,7 @@ foreach ($objets as $objet) {
                     <?php foreach ($liste as $objet) { ?>
                         <li class="list-group-item">
                             <a href="home.php?page=detail&id=<?= $objet['id_objet'] ?>">
-                                <?= htmlspecialchars($objet['nom_objet']) ?>
+                                <?= $objet['nom_objet'] ?>
                             </a>
                         </li>
                     <?php } ?>

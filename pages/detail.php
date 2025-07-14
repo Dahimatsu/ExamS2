@@ -26,12 +26,12 @@ $images = getObjectImages($id_Objet);
                                 <?php } ?>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#objetGalleryCarousel"
-                                data-bs-slide="prev">
+                                data-bs-slide="prev" style="filter: invert(1);">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Précédent</span>
                             </button>
                             <button class="carousel-control-next" type="button" data-bs-target="#objetGalleryCarousel"
-                                data-bs-slide="next">
+                                data-bs-slide="next" style="filter: invert(1);">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Suivant</span>
                             </button>

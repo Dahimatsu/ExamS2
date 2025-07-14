@@ -258,3 +258,22 @@ function searchObjet($categorie, $nomObjet, $disponible)
 
     return $objects;
 }
+
+function getUserById($userId)
+{
+    $sql = "SELECT * 
+            FROM ExamS2_membre
+            WHERE id_membre = '%s'";
+
+    $sql = sprintf($sql, $userId);
+    $request = mysqli_query(dbConnect(), $sql);
+
+    if (mysqli_num_rows($request) > 0) {
+        return mysqli_fetch_assoc($request);
+    } else {
+        return null;
+    }
+}
+
+
+

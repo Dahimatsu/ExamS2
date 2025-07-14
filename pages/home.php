@@ -71,7 +71,7 @@ if (isset($_SESSION['user'])) {
                             <?php } ?>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center" href="home.php?page=profil">
+                            <a class="nav-link d-flex align-items-center" href="home.php?page=profil&user=<?= $user['id_membre'] ?>">
                                 <i class="bi bi-person-circle me-1"></i>
                                 <?= $user['nom'] ?>
                             </a>
@@ -109,7 +109,7 @@ if (isset($_SESSION['user'])) {
                         <a class="nav-link text-white" href="home.php?page=ajouter">Ajouter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="home.php?page=profil">
+                        <a class="nav-link text-white" href="home.php?page=profil&user=<?= $user['id_membre'] ?>">
                             <i class="bi bi-person-circle me-1"></i> <?= $user['nom'] ?>
                         </a>
                     </li>
