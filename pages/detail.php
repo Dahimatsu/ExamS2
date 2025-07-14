@@ -5,6 +5,7 @@ $images = getObjectImages($id_Objet);
 ?>
 
 <section class="container py-4">
+    <p><a href="home.php?page=accueil">Retour</a></p>
     <h1 class="mb-4 text-center">Détails de l'objet</h1>
 
     <div class="row justify-content-center">
@@ -12,7 +13,6 @@ $images = getObjectImages($id_Objet);
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <h4 class="card-title text-primary border-bottom border-primary pb-2 mb-3">Galerie</h4>
-
                     <?php if (!empty($images)) { ?>
                         <div id="objetGalleryCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
                             <div class="carousel-inner">

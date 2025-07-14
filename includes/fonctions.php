@@ -16,7 +16,7 @@ function isConnected($mail, $motdepasse)
     } else {
         return null;
     }
-}   
+}
 
 function isEmailExist($email)
 {
@@ -44,7 +44,7 @@ function confirm_password($password, $confirm_password)
     return $password === $confirm_password;
 }
 
-function getAllObject() 
+function getAllObject()
 {
     $sql = "SELECT * FROM ExamS2_v_objet_lib";
     $query = mysqli_query(dbConnect(), $sql);
@@ -55,7 +55,8 @@ function getAllObject()
     return $objects;
 }
 
-function isEmpruntEnCoursId($id) {
+function isEmpruntEnCoursId($id)
+{
     $sql = "SELECT * 
             FROM ExamS2_v_emprunt_lib
             WHERE id_objet = '%s'";
@@ -66,7 +67,8 @@ function isEmpruntEnCoursId($id) {
     return mysqli_num_rows($request) > 0;
 }
 
-function getEmpruntRetour($id) {
+function getEmpruntRetour($id)
+{
     $sql = "SELECT date_retour 
             FROM ExamS2_v_emprunt_lib
             WHERE id_objet = '%s'";
@@ -81,7 +83,8 @@ function getEmpruntRetour($id) {
     }
 }
 
-function getAllCategories() {
+function getAllCategories()
+{
     $sql = "SELECT * FROM ExamS2_categorie_objet";
     $query = mysqli_query(dbConnect(), $sql);
     $categories = [];
@@ -91,7 +94,8 @@ function getAllCategories() {
     return $categories;
 }
 
-function getObjectsByCategory($categoryId) {
+function getObjectsByCategory($categoryId)
+{
     $sql = "SELECT * 
             FROM ExamS2_v_objet_lib
             WHERE id_categorie = '%s'";
@@ -113,7 +117,7 @@ function insertObjet($nom, $categorie, $userId)
     $sql = sprintf($sql, $nom, $categorie, $userId);
     mysqli_query($conn, $sql);
 
-    return mysqli_insert_id($conn); 
+    return mysqli_insert_id($conn);
 }
 
 function insertImage($imageName, $idObjet)
@@ -196,10 +200,61 @@ function getObjectImages($id)
     $sql = sprintf($sql, $id);
     $request = mysqli_query(dbConnect(), $sql);
     $images = [];
-    
+
     while ($row = mysqli_fetch_assoc($request)) {
         $images[] = $row;
     }
-    
+
     return $images;
+}
+
+function getUserObjects($userId)
+{
+    $sql = "SELECT * 
+            FROM ExamS2_v_objet_lib
+            WHERE id_membre = '%s'";
+
+    $sql = sprintf($sql, $userId);
+    $request = mysqli_query(dbConnect(), $sql);
+    $objects = [];
+
+    while ($row = mysqli_fetch_assoc($request)) {
+        $objects[] = $row;
+    }
+
+    return $objects;
+}
+
+function searchObjet($categorie, $nomObjet, $disponible)
+{
+    $conn = dbConnect();
+
+    $categorie = mysqli_real_escape_string($conn, $categorie);
+    $nomObjet = mysqli_real_escape_string($conn, $nomObjet);
+
+    $sql = "SELECT * 
+            FROM ExamS2_v_objet_lib
+            WHERE 1=1";
+
+    if (!empty($categorie)) {
+        $sql .= " AND nom_categorie LIKE '%$categorie%'";
+    }
+
+    if (!empty($nomObjet)) {
+        $sql .= " AND nom_objet LIKE '%$nomObjet%'";
+    }
+
+    if ($disponible) {
+        $sql .= " AND nom_objet 
+                  NOT IN (SELECT nom_objet FROM ExamS2_v_emprunt_lib)";
+    }
+
+    $request = mysqli_query($conn, $sql);
+    $objects = [];
+
+    while ($row = mysqli_fetch_assoc($request)) {
+        $objects[] = $row;
+    }
+
+    return $objects;
 }

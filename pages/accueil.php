@@ -1,5 +1,12 @@
 <?php 
-$objets = getAllObject();
+if(!isset($_POST['rechercher'])) {
+    $objets = getAllObject();
+} else {
+    $nomCategorie = $_POST['categorie_obj'];
+    $nomObjet = $_POST['name_obj'];
+    $disponible = isset($_POST['disponilbe']) ? true : false;
+    $objets = searchObjet($nomCategorie, $nomObjet, $disponible);
+}
 $categories = getAllCategories();
 
 ?>
@@ -8,32 +15,32 @@ $categories = getAllCategories();
         <h1>Bienvenue</h1>
     </div>
 
-    <div class="d-flex justify-content-center">
-        <form method="post">
-            <label for="categorie_obj">Choisir une catégorie: </label>
-            <select name="categorie_obj" id="categorie_obj">
-                <?php foreach ($categories as $categorie) { ?>
-                    <option value="<?php echo $categorie['nom_categorie'];?>"><?php echo $categorie['nom_categorie'];?></option>
-                <?php } ?>
-            </select>
+    <div class="d-flex justify-content-center my-4">
+        <form method="post" class="p-4 bg-light w-50">
             <div class="mb-3">
-                <p>
-                    <input type="text" placeholder="Nom de l'objet" class="form-control" id="name_obj" name="name_obj" required>
-                    Disponible <input type="radio" name="disponilbe"> 
-                </p>
+                <label for="categorie_obj" class="form-label fw-bold">Catégorie</label>
+                <select name="categorie_obj" id="categorie_obj" class="form-select">
+                    <option value="">Toutes les catégories</option>
+                    <?php foreach ($categories as $categorie) { ?>
+                        <option value="<?= $categorie['nom_categorie']; ?>">
+                            <?= $categorie['nom_categorie']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="name_obj" class="form-label fw-bold">Nom de l'objet</label>
+                <input type="text" class="form-control" id="name_obj" name="name_obj">
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="disponible" name="disponilbe">
+                <label class="form-check-label" for="disponible">Disponible uniquement</label>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" name="rechercher" class="btn btn-dark">Valider</button>
+                <button type="submit" name="rechercher" class="btn btn-dark px-4">Rechercher</button>
             </div>
         </form>
     </div>
-
-<?php if(isset('rechercher')) { ?>
-    
-    
-
-
-<?php }else{ ?>
     <div class="d-flex justify-content-center">
         <table class="table table-striped table-bordered w-50">
             <thead class="table-dark">
@@ -71,5 +78,4 @@ $categories = getAllCategories();
             </tbody>
         </table>
     </div>
-<?php } ?>
 </section>

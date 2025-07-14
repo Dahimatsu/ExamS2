@@ -117,7 +117,7 @@ INSERT INTO `ExamS2_emprunt` (`id_objet`, `id_membre`, `date_emprunt`, `date_ret
 (20, 2, '2024-06-10 17:00:00', '2024-06-14 22:00:00');
 
 CREATE OR REPLACE VIEW `ExamS2_v_objet_lib` AS
-SELECT o.`id_objet`, o.`nom_objet`, c.`id_categorie`, c.`nom_categorie`, m.`nom`
+SELECT o.`id_objet`, o.`nom_objet`, c.`id_categorie`, c.`nom_categorie`, m.`id_membre`, m.`nom`
 FROM `ExamS2_objet` o
 JOIN `ExamS2_categorie_objet` c ON o.`id_categorie` = c.`id_categorie`
 JOIN `ExamS2_membre` m ON o.`id_membre` = m.`id_membre`
