@@ -1,11 +1,25 @@
 <?php 
 $objets = getAllObject();
+$categories = getAllCategories();
 
 ?>
 <section>
     <div class="text-center my-4">
         <h1>Bienvenue</h1>
     </div>
+
+    <div class="d-flex justify-content-center">
+        <form method="post">
+            <label for="categorie">Choisir une catégorie: </label>
+            <select name="categorie_obj" id="categorie_obj">
+                <?php foreach ($categories as $categorie) { ?>
+                    <option value="volvo"><?php echo $categorie['nom_categorie'];?></option>
+                <?php } ?>
+            </select>
+        </form>
+    </div>
+
+
     <div class="d-flex justify-content-center">
         <table class="table table-striped table-bordered w-50">
             <thead class="table-dark">
