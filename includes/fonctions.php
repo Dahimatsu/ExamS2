@@ -171,4 +171,35 @@ function ajouterNewObjet($nomObjet, $categorie, $userId, $files)
     uploadImage($files, $idObjet);
 }
 
+function getObjetById($id)
+{
+    $sql = "SELECT * 
+            FROM ExamS2_v_objet_lib
+            WHERE id_objet = '%s'";
 
+    $sql = sprintf($sql, $id);
+    $request = mysqli_query(dbConnect(), $sql);
+
+    if (mysqli_num_rows($request) > 0) {
+        return mysqli_fetch_assoc($request);
+    } else {
+        return null;
+    }
+}
+
+function getObjectImages($id)
+{
+    $sql = "SELECT * 
+            FROM ExamS2_image_objet
+            WHERE id_objet = '%s'";
+
+    $sql = sprintf($sql, $id);
+    $request = mysqli_query(dbConnect(), $sql);
+    $images = [];
+    
+    while ($row = mysqli_fetch_assoc($request)) {
+        $images[] = $row;
+    }
+    
+    return $images;
+}

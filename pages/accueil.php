@@ -34,7 +34,11 @@ $categories = getAllCategories();
                 <?php foreach ($objets as $objet) { ?>
                     <tr>
                         <td class="text-center"><?= $objet['id_objet']; ?></td>
-                        <td><?= $objet['nom_objet']; ?></td>
+                        <td>
+                            <a href="home.php?page=detail&id=<?= $objet['id_objet']; ?>">
+                                <?= $objet['nom_objet']; ?>
+                            </a>
+                        </td>
                         <?php if (isEmpruntEnCoursId($objet['id_objet'])) { ?>
                             <td><span class="badge bg-warning">Emprunt en cours</span></td>
                         <?php } else { ?>

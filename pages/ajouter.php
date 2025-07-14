@@ -26,7 +26,7 @@ $user = $_SESSION['user'];
         </div>
         <input type="hidden" value="<?= $user['id_membre'] ?>" name="user_id">
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn">Ajouter</button>
+            <button type="submit" name="ajouter" class="btn">Ajouter</button>
         </div>
     </form>
     <div class="mt-3">

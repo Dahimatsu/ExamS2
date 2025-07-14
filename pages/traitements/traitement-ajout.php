@@ -1,7 +1,7 @@
 <?php
 require('../../includes/fonctions.php');
 
-if (isset($_POST['nom_objet'], $_POST['categorie'], $_POST['user_id']) && isset($_FILES['file'])) {
+if (isset($_POST['ajouter'])) {
     $nom = $_POST['nom_objet'];
     $categorie = $_POST['categorie'];
     $userId = $_POST['user_id'];
