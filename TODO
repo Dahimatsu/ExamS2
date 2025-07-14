@@ -1,0 +1,7 @@
+☐ Création de repository GitHub - 4054
+    ☐ Nom du repository : ETU4054_ETU4155
+    ☐ Ajouter le binome 4155
+
+☐ modele.php
+    ✔ Recuperation du parametre page @done
+    ✔ require page.php dans le main @done
