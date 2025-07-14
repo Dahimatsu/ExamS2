@@ -300,3 +300,29 @@ function isEmpreinte($idObjet){
 
     return mysqli_num_rows($request) > 0;
 }
+
+function getAllEmprunts($nomMembre)
+{
+    $sql = "SELECT * 
+            FROM ExamS2_v_emprunt_lib
+            WHERE membre_nom = '%s'";
+
+    $sql = sprintf($sql, $nomMembre);
+    $request = mysqli_query(dbConnect(), $sql);
+    $emprunts = [];
+
+    while ($row = mysqli_fetch_assoc($request)) {
+        $emprunts[] = $row;
+    }
+
+    return $emprunts;
+}
+
+function rendreEmprunt($idEmprunt)
+{
+    $sql = "DELETE FROM ExamS2_emprunt 
+            WHERE id_emprunt = '%s'";
+
+    $sql = sprintf($sql, $idEmprunt);
+    mysqli_query(dbConnect(), $sql);
+}
