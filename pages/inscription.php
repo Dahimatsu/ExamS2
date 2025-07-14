@@ -1,7 +1,7 @@
-<section>
+<section class="d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
     <h1>Inscrivez-vous</h1>
 
-    <form action="traitements/traitement-index.php" method="post">
+    <form action="traitements/traitement-index.php" class="inscription" method="post">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
@@ -34,7 +34,9 @@
             <label for="confirm_password" class="form-label">Confirmer le mot de passe</label>
             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
         </div>
-        <button type="submit" name="inscription" class="btn btn-primary">S'inscrire</button>
+        <div class="d-flex justify-content-center">
+            <button type="submit" name="inscription" class="btn">S'inscrire</button>
+        </div>
     </form>
     <div class="mt-3">
         <p>Vous avez déjà un compte ? <a href="?page=login">Se connecter</a></p>

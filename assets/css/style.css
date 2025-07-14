@@ -72,6 +72,8 @@ header .logo .right {
   scale: 0.9
 }
 
+.inscription button,
+.filtre button,
 .navbar-nav button {
   background-color: #000000;
   color: #ffffff;
@@ -81,11 +83,13 @@ header .logo .right {
   transition: all 0.2s ease-in-out; 
 }
 
+.inscription button:hover,
+.filtre button:hover,
 .offcanvas-body button:hover,
 .navbar-nav button:hover {
   background-color: #000000;
   color: #ffffff;
-  scale: 1.2;
+  scale: 1.1;
 }
 
 .offcanvas-body button:active,
@@ -118,4 +122,10 @@ footer a:hover {
   color: #ffffff !important;
   background-color: #d1d1d1;
   border-radius: 10px;
+}
+
+.inscription,
+.login {
+  width: 100%; 
+  max-width: 400px
 }

@@ -81,3 +81,27 @@ function getEmpruntRetour($id) {
     }
 }
 
+function getAllCategories() {
+    $sql = "SELECT * FROM ExamS2_categorie_objet";
+    $query = mysqli_query(dbConnect(), $sql);
+    $categories = [];
+    while ($row = mysqli_fetch_assoc($query)) {
+        $categories[] = $row;
+    }
+    return $categories;
+}
+
+function getObjectsByCategory($categoryId) {
+    $sql = "SELECT * 
+            FROM ExamS2_v_objet_lib
+            WHERE id_categorie = '%s'";
+
+    $sql = sprintf($sql, $categoryId);
+    $query = mysqli_query(dbConnect(), $sql);
+    $objects = [];
+    while ($row = mysqli_fetch_assoc($query)) {
+        $objects[] = $row;
+    }
+    return $objects;
+}
+

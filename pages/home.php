@@ -2,11 +2,11 @@
 session_start();
 require('../includes/fonctions.php');
 $page = $_GET['page'];
-if(isset($_SESSION['user'])) {
+if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 ?>
-    
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -16,7 +16,7 @@ if(isset($_SESSION['user'])) {
     <link rel="icon" type="image/svg+xml" href="../assets/images/icon.ico">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/bootstrap/bootstrap-icons/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="../assets/bootstrap/bootstrap-icons/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="../assets/fonts/ProductSans/productSans.css" />
     <title><?= ucfirst($page) ?></title>
 </head>
@@ -39,17 +39,36 @@ if(isset($_SESSION['user'])) {
                     <ul class="navbar-nav flex-row align-items-center">
                         <li class="nav-item">
                             <?php if ($page == 'accueil') { ?>
-                                <a class="nav-link active" href="modele.php?page=accueil">
+                                <a class="nav-link active" href="home.php?page=accueil">
                                     <i class="bi bi-house-door-fill me-1"></i> Accueil
                                 </a>
                             <?php } else { ?>
-                                <a class="nav-link" href="modele.php?page=accueil">
+                                <a class="nav-link" href="home.php?page=accueil">
                                     <i class="bi bi-house-door-fill me-1"></i> Accueil
                                 </a>
                             <?php } ?>
                         </li>
+                        <li class="nav-item">
+                            <?php if ($page == 'filtre') { ?>
+                                <a class="nav-link active" href="home.php?page=filtre">
+                                    <i class="bi bi-funnel-fill me-1"></i> Filtre
+                                </a>
+                            <?php } else { ?>
+                                <a class="nav-link" href="home.php?page=filtre">
+                                    <i class="bi bi-funnel-fill me-1"></i> Filtre
+                                </a>
+                            <?php } ?>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-person-circle me-1"></i>
+                                <?= $user['nom'] ?>
+                            </a>
+                        </li>
                         <li class="nav-item ms-3">
-                            <button class="btn btn-primary">Bouton</button>
+                            <form action="../includes/deconnexion.php" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-primary">Déconnexion</button>
+                            </form>
                         </li>
                     </ul>
                 </div>
