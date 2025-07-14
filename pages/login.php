@@ -1,5 +1,6 @@
 <section>
-    <form action="traitement-index.php" method="post">
+    <h1>Connectez-vous</h1>
+    <form action="traitements/traitement-index.php" method="post">
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required>
@@ -13,4 +14,9 @@
     <div class="mt-3">
         <p>Vous n'avez pas de compte ? <a href="?page=inscription">S'inscrire</a></p>
     </div>
+    <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid') { ?>
+        <div class="alert alert-danger" role="alert">
+            Identifiant ou mot de passe incorrect.
+        </div>
+    <?php } ?>
 </section>

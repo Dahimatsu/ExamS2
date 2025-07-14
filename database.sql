@@ -9,38 +9,38 @@ CREATE TABLE IF NOT EXISTS `ExamS2_membre` (
     `email` VARCHAR(100) NOT NULL UNIQUE,
     `ville` VARCHAR(255) NOT NULL,
     `mot_de_passe` VARCHAR(255) NOT NULL,
-    'image_profil' VARCHAR(255) DEFAULT 'default.jpg' 
+    `image_profil` VARCHAR(255) DEFAULT 'default.jpg' 
 );
 
 CREATE TABLE IF NOT EXISTS `ExamS2_categorie_objet` (
-    'id_categorie' INT AUTO_INCREMENT PRIMARY KEY,
-    'nom_categorie' VARCHAR(100) NOT NULL,
+    `id_categorie` INT AUTO_INCREMENT PRIMARY KEY,
+    `nom_categorie` VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `ExamS2_objet` (
-    'id_objet' INT AUTO_INCREMENT PRIMARY KEY,
-    'nom_objet' VARCHAR(100) NOT NULL,
-    'id_categorie' INT NOT NULL,
-    'id_membre' INT NOT NULL,
-    FOREIGN KEY ('id_categorie') REFERENCES `ExamS2_categorie_objet`('id_categorie'),
-    FOREIGN KEY ('id_membre') REFERENCES `ExamS2_membre`('id_membre'),
+    `id_objet` INT AUTO_INCREMENT PRIMARY KEY,
+    `nom_objet` VARCHAR(100) NOT NULL,
+    `id_categorie` INT NOT NULL,
+    `id_membre` INT NOT NULL,
+    FOREIGN KEY (`id_categorie`) REFERENCES `ExamS2_categorie_objet`(`id_categorie`),
+    FOREIGN KEY (`id_membre`) REFERENCES `ExamS2_membre`(`id_membre`)
 );
 
 CREATE TABLE IF NOT EXISTS `ExamS2_image_objet` (
-    'id_image' INT AUTO_INCREMENT PRIMARY KEY,
-    'id_objet' INT NOT NULL,
-    'nom_image' VARCHAR(255) NOT NULL,
-    FOREIGN KEY ('id_objet') REFERENCES `ExamS2_objet`('id_objet')
+    `id_image` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_objet` INT NOT NULL,
+    `nom_image` VARCHAR(255) NOT NULL,
+    FOREIGN KEY (`id_objet`) REFERENCES `ExamS2_objet`(`id_objet`)
 );
 
 CREATE TABLE IF NOT EXISTS `ExamS2_emprunt` (
-    'id_emprunt' INT AUTO_INCREMENT PRIMARY KEY,
-    'id_objet' INT NOT NULL,
-    'id_membre' INT NOT NULL,
-    'date_emprunt' DATETIME DEFAULT CURRENT_TIMESTAMP,
-    'date_retour' DATETIME,
-    FOREIGN KEY ('id_objet') REFERENCES `ExamS2_objet`('id_objet'),
-    FOREIGN KEY ('id_membre') REFERENCES `ExamS2_membre`('id_membre')
+    `id_emprunt` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_objet` INT NOT NULL,
+    `id_membre` INT NOT NULL,
+    `date_emprunt` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `date_retour` DATETIME,
+    FOREIGN KEY (`id_objet`) REFERENCES `ExamS2_objet`(`id_objet`),
+    FOREIGN KEY (`id_membre`) REFERENCES `ExamS2_membre`(`id_membre`)
 );
 
 Insert into `ExamS2_membre` (`nom`, `date_de_naissance`, `genre`, `email`, `ville`, `mot_de_passe`) VALUES
@@ -53,7 +53,7 @@ INSERT INTO `ExamS2_categorie_objet` (`nom_categorie`) VALUES
 ('Esthétique'),
 ('Bricolage'),
 ('Mécanique'),
-('Cuisine')
+('Cuisine');
 
 INSERT INTO `ExamS2_objet` (`nom_objet`, `id_categorie`, `id_membre`) VALUES
 -- Objets pour RAKOTOBE Joshua Riki (id_membre = 1)

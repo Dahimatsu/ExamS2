@@ -1,7 +1,39 @@
-☐ Création de repository GitHub - 4054
-    ☐ Nom du repository : ETU4054_ETU4155
-    ☐ Ajouter le binome 4155
-
-☐ modele.php
+☐ Home.php
     ✔ Recuperation du parametre page @done
     ✔ require page.php dans le main @done
+☐ index.php
+    ✔ Recuperation du parametre page @done
+    ✔ require page.php dans le main @done
+    ✔ login.php - 4155 @done
+        ✔ Formulaire de connexion @done
+        ✔ Action: traitement-index.php @done
+        ✔ Method: post@done
+        ✔ input: email, password @done
+        ✔ afficher un message d'erreur si les identifiants sont invalides @done
+    ✔ inscription - 4155@done
+        ✔ Formulaire d'inscription @done
+        ✔ Action: traitement-index.php @done
+        ✔ Method: post @done
+        ✔ input: nom, date_de_naissance, genre, email, ville, password, confirm_password @done
+        ✔ afficher un message d'erreur si l'inscription échoue @done
+    ✔ traitement-index.php - 4054 @done
+        ✔ si le bouton seConnecter est cliqué @done
+            ✔ recuperer les valeurs des champs email et motdepasse @done
+            ✔ appeler la fonction isConnected() @done
+                ✔ donner en arguments les valeurs des champs email et motdepasse @done
+                ✔ verifications dans la base de donnees @done
+                ✔ si l'utilisateur existe, on return les informations de l'utilisateur @done
+                ✔ sinon, return false @done
+            ✔ si l'utilisateur est connecté, rediriger vers home.php avec le parametre page=accueil @done
+            ✔ sinon, rediriger vers index.php avec le parametre page=login et error=invalid @done
+        ✔ si le bouton inscription est cliqué @done
+            ✔ recuperer les valeurs des champs nom, date_de_naissance, genre, email, ville, password, confirm_password @done
+            ✔ appeler la fonction isEmailExist() @done
+                ✔ donner en argument la valeur du champ email @done
+                ✔ verifications dans la base de donnees @done
+                ✔ si l'email existe, return true @done
+                ✔ sinon, return false @done
+            ✔ si l'email n'existe pas, appeler la fonction confirm_password() @done
+            ✔ si les mots de passe correspondent, appeler la fonction addUser() @done
+            ✔ sinon, rediriger vers index.php avec le parametre page=inscription et error=password @done
+        ✔ si l'email existe, rediriger vers index.php avec le parametre page=inscription et error=email @done

@@ -1,7 +1,7 @@
 <section>
     <h1>Inscrivez-vous</h1>
 
-    <form action="traitement-index.php" method="post">
+    <form action="traitements/traitement-index.php" method="post">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
@@ -36,4 +36,17 @@
         </div>
         <button type="submit" name="inscription" class="btn btn-primary">S'inscrire</button>
     </form>
+    <div class="mt-3">
+        <p>Vous avez déjà un compte ? <a href="?page=login">Se connecter</a></p>
+    </div>
+
+    <?php if (isset($_GET['error']) && $_GET['error'] === 'email') { ?>
+        <div class="alert alert-danger mt-3" role="alert">
+            L'email est déjà utilisé.
+        </div>
+    <?php } elseif (isset($_GET['error']) && $_GET['error'] === 'password') { ?>
+        <div class="alert alert-danger mt-3" role="alert">
+            Les mots de passe ne correspondent pas.
+        </div>
+    <?php } ?>
 </section>

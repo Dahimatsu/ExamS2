@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../includes/fonctions.php');
 $page = $_GET['page'];
 ?>
