@@ -115,3 +115,19 @@ INSERT INTO `ExamS2_emprunt` (`id_objet`, `id_membre`, `date_emprunt`, `date_ret
 (38, 4, '2024-06-08 16:00:00', '2024-06-12 20:00:00'),
 (10, 3, '2024-06-09 12:00:00', '2024-06-13 21:00:00'),
 (20, 2, '2024-06-10 17:00:00', '2024-06-14 22:00:00');
+
+CREATE OR REPLACE VIEW `ExamS2_v_objet_lib` AS
+SELECT o.`id_objet`, o.`nom_objet`, c.`nom_categorie`, m.`nom`
+FROM `ExamS2_objet` o
+JOIN `ExamS2_categorie_objet` c ON o.`id_categorie` = c.`id_categorie`
+JOIN `ExamS2_membre` m ON o.`id_membre` = m.`id_membre`;
+
+CREATE OR REPLACE VIEW `ExamS2_v_emprunt_lib` AS
+SELECT e.`id_emprunt`, o.`id_objet`, o.`nom_objet`, m.`nom` AS `membre_nom`, e.`date_emprunt`, e.`date_retour`
+FROM `ExamS2_emprunt` e
+JOIN `ExamS2_objet` o ON e.`id_objet` = o.`id_objet`
+JOIN `ExamS2_membre` m ON e.`id_membre` = m.`id_membre`;
+
+SELECT o. `id_objet`, o.`nom_objet`, e.`date_emprunt`, e.`date_retour`
+FROM `ExamS2_v_objet_lib` o
+JOIN `ExamS2_v_emprunt_lib` e ON o.`id_objet` = e.`id_objet`;

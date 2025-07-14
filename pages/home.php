@@ -2,8 +2,11 @@
 session_start();
 require('../includes/fonctions.php');
 $page = $_GET['page'];
+if(isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+}
 ?>
-
+    
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -44,15 +47,6 @@ $page = $_GET['page'];
                                     <i class="bi bi-house-door-fill me-1"></i> Accueil
                                 </a>
                             <?php } ?>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Open source</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Lien</a>
                         </li>
                         <li class="nav-item ms-3">
                             <button class="btn btn-primary">Bouton</button>
