@@ -1,4 +1,4 @@
-<section class="d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
+<section class="d-flex justify-content-center align-items-center flex-column">
     <h1>Inscrivez-vous</h1>
 
     <form action="traitements/traitement-index.php" class="inscription" method="post">

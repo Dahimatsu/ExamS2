@@ -26,7 +26,7 @@ if (isset($_SESSION['user'])) {
     <header class="header mb-4 sticky-top">
         <nav class="navbar navbar-expand-md">
             <div class="container-fluid">
-                <a href="modele.php?page=accueil" class="logo fs-4 text-decoration-none text-white">
+                <a href="home.php?page=accueil" class="logo fs-4 text-decoration-none text-white">
                     <img src="../assets/images/logo-black.png" alt="Logo" class="logo-image">
                 </a>
 
@@ -60,6 +60,17 @@ if (isset($_SESSION['user'])) {
                             <?php } ?>
                         </li>
                         <li class="nav-item">
+                            <?php if ($page == 'ajouter') { ?>
+                                <a class="nav-link active" href="home.php?page=ajouter">
+                                    <i class="bi bi-plus me-1"></i> Ajouter
+                                </a>
+                            <?php } else { ?>
+                                <a class="nav-link" href="home.php?page=ajouter">
+                                    <i class="bi bi-plus me-1"></i> Ajouter
+                                </a>
+                            <?php } ?>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link d-flex align-items-center" href="#">
                                 <i class="bi bi-person-circle me-1"></i>
                                 <?= $user['nom'] ?>
@@ -86,22 +97,23 @@ if (isset($_SESSION['user'])) {
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
                     style="filter: invert(1);"></button>
             </div>
-            <div class="offcanvas-body d-flex flex-column justify-content-end">
-                <ul class="navbar-nav flex-column align-items-end pe-3">
+            <div class="offcanvas-body d-flex flex-column justify-content-start">
+                <ul class="navbar-nav flex-column align-items-start ps-3">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Services</a>
+                        <a class="nav-link text-white" href="home.php?page=accueil">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Open source</a>
+                        <a class="nav-link text-white" href="home.php?page=filtre">Filtre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Blog</a>
+                        <a class="nav-link text-white" href="home.php?page=ajouter">Ajouter</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Lien</a>
+                    <li class="nav-item ms-3">
+                        <form action="../includes/deconnexion.php" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Déconnexion</button>
+                        </form>
                     </li>
                 </ul>
-                <button class="btn btn-primary mt-3 align-self-end me-3">Bouton</button>
             </div>
         </div>
     </header>

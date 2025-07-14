@@ -72,6 +72,7 @@ header .logo .right {
   scale: 0.9
 }
 
+.upload button,
 .inscription button,
 .filtre button,
 .navbar-nav button {
@@ -83,6 +84,7 @@ header .logo .right {
   transition: all 0.2s ease-in-out; 
 }
 
+.upload button:hover,
 .inscription button:hover,
 .filtre button:hover,
 .offcanvas-body button:hover,

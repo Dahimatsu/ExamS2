@@ -105,3 +105,48 @@ function getObjectsByCategory($categoryId) {
     return $objects;
 }
 
+function insertImage($imageName, $userID)
+{
+    $sql = "INSERT INTO ExamS2_image_objet(nom_image) 
+            VALUES ('%s')";
+
+    $sql = sprintf($sql, $imageName, $userID);
+    return mysqli_query(dbConnect(), $sql);
+}
+function upload($file, $user)
+{
+    $uploadDirectory = dirname(__DIR__) . '/assets/videos/';
+    $maxSize = 100 * 1024 * 1024;
+    $allowedFiles = ['video/mp4'];
+
+    if ($file['error'] != UPLOAD_ERR_OK) {
+        die('Erreur lors de l upload : ' . $file['error']);
+    }
+
+    if ($file['size'] > $maxSize) {
+        die('Le fichier est trop volumineux.');
+    }
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+    if (!in_array($mime, $allowedFiles)) {
+        die('Type de fichier non autorisé : ' . $mime);
+    }
+
+    $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $newName = $originalName . '_' . uniqid() . '.' . $extension;
+
+    if (!is_dir($uploadDirectory)) {
+        mkdir($uploadDirectory, 0755, true);
+    }
+
+    $destination = $uploadDirectory . $newName;
+
+    if (move_uploaded_file($file['tmp_name'], $destination)) {
+        insertVideo($newName, $user);
+    } else {
+        echo "Échec du déplacement du fichier.";
+    }
+}
